@@ -37,7 +37,7 @@ public class MapBuiltUpPlugin extends Plugin {
             World map = Vars.world;
             map.tiles.eachTile( t -> {
                 Block bl = t.block();
-                if (bl == Blocks.air) buildableTiles++;
+                if (bl == Blocks.air && !t.floor().isLiquid) buildableTiles++; // Проблема: на водных картах процента не достичь из-за размера океана. Временное решение: игнорировать жидкости, хотя мелководья это тоже по идее будет затрагивать
                 else if (bl.isPlaceable()) {buildableTiles++; occupiedTiles++;} // Считал через метод isPlaceable(): для существующего блока это актуально, для сломанного пришлось использовать другие методы
             });
             Call.setHudText("Процент застройки: [orange]" + percent() + "%[].");
