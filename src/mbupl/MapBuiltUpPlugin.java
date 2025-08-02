@@ -71,10 +71,11 @@ public class MapBuiltUpPlugin extends Plugin {
         });
 
         Events.on(EventType.BlockDestroyEvent.class, event -> {
+            if (lastWaveTriggered) return;
             int size = event.tile.block().size; size *= size;
 //            Call.sendMessage("Destroy: " + occupiedTiles);
             occupiedTiles -= size;
-            Call.setHudText("[red]Процент застройки: " + percent() + "%.\nНАЧАЛО ПОСЛЕДНЕЙ ВОЛНЫ.");
+            Call.setHudText("Процент застройки: [orange]" + percent() + "%[].");
         });
     }
 }
