@@ -1,0 +1,7 @@
+{
+  "name": "MapBuiltUpPlugin",
+  "author": "Kortaol",
+  "main": "mbupl.MapBuiltUpPlugin",
+  "description": "A plugin that triggers the last wave after 90+% of the map is built up.",
+  "version": 1.0
+}
