@@ -38,19 +38,7 @@ public class MapBuiltUpPlugin extends Plugin {
             map.tiles.eachTile( t -> {
                 Block bl = t.block();
                 if (bl == Blocks.air) buildableTiles++;
-                else if (bl.isPlaceable()) {buildableTiles++; occupiedTiles++; /*Log.info(bl.name);*/}
-
-                /*
-                Актуальная проблема -- подсчёт построек. Надо не считать валуны (они считаются derelict), размер построек должен учитываться,
-                при этом почему-то не считаются постройки команды игрока, стоящие на карте изначально.
-
-                Объяснение v2: функция подсчёта считает по тайлам, так что размер она учитывает автоматически. С другой стороны, по какой-то причине
-                не учитываются фабрики, как на карте с озером, в то время как далее по коду оно считается удаляемым блоком.
-                Мы используем разные функции для проверки, поэтому в данном случае будем учитывать по принципу "isPlaceable()"
-
-                Этот подход сработал. При удалении внешних блоков остаются только ядро размером 25, как и было задумано.
-                 */
-
+                else if (bl.isPlaceable()) {buildableTiles++; occupiedTiles++;} // Считал через метод isPlaceable(): для существующего блока это актуально, для сломанного пришлось использовать другие методы
             });
             Call.setHudText("Процент застройки: [orange]" + percent() + "%[].");
             Log.info("Начальный процент застройки карты: " + percent() + ": " + occupiedTiles + "/" + buildableTiles + ".");
@@ -71,7 +59,7 @@ public class MapBuiltUpPlugin extends Plugin {
 //            Call.sendMessage("Broken: " + occupiedTiles);
 
             float p = percent();
-            if (p < 2) Call.setHudText("Процент застройки: [orange]" + percent() + "%[].");
+            if (p < 75) Call.setHudText("Процент застройки: [orange]" + percent() + "%[]."); // SORRY! 2% was left for debug purposes, my bad :3
             else {
                 Call.setHudText("[red]Процент застройки: " + percent() + "%.\nНАЧАЛО ПОСЛЕДНЕЙ ВОЛНЫ.");
 
